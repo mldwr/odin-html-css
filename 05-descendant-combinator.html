@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,22 +28,29 @@
        color: red;
       }
 
+      /* chaining selector (no space)
+         same class multiple elements*/
       .first.second {
         color: blue;
       }
       
-      /* rule 2 */
-      .second .second {
+      /* descendant combinator (empty space)
+         multiple classes as parent and child */
+      .first .second {
+        color: green;
+      }
+      /*same rule with a child combinator*/
+      .first  > .second {
         color: green;
       }
     </style>
   </head>
   <body>
     <div class="main">
-      <div class="first second">first second class selectors</div>
+      <div class="first second">first second class selectors: blue</div>
     </div>
     <div class="first">
-      <div class="second">first second class selectors</div>
+      <div class="second">first second class selectors: green</div>
     </div>
     <div class="main">
       <div class="list" id="subsection">Red text on yellow background</div>
