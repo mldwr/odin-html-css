@@ -26,9 +26,24 @@
       .main #subsection {
        color: red;
       }
+
+      .first.second {
+        color: blue;
+      }
+      
+      /* rule 2 */
+      .second .second {
+        color: green;
+      }
     </style>
   </head>
   <body>
+    <div class="main">
+      <div class="first second">first second class selectors</div>
+    </div>
+    <div class="first">
+      <div class="second">first second class selectors</div>
+    </div>
     <div class="main">
       <div class="list" id="subsection">Red text on yellow background</div>
     </div>
