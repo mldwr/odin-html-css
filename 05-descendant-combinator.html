@@ -17,9 +17,21 @@
       div {
         color: blue;
       }
+      #subsection {
+        background-color: yellow;
+        color: blue;
+      }
+      
+      /* rule 2 */
+      .main #subsection {
+       color: red;
+      }
     </style>
   </head>
   <body>
+    <div class="main">
+      <div class="list" id="subsection">Red text on yellow background</div>
+    </div>
     <div class="container">
       <p class="text">This should be styled.</p>
     </div>
