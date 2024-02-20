@@ -1,5 +1,4 @@
-/* this is some magical font-importing.  
-you'll learn about it later. */
+/* Variant 2*/
 @import url('https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;1,900&display=swap');
 
 body {
@@ -9,10 +8,13 @@ body {
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
   background: white;
   border-bottom: 1px solid #ddd;
   box-shadow: 0 0 8px rgba(0,0,0,.1);
 }
+
 
 .profile-image {
   background: rebeccapurple;
@@ -20,6 +22,7 @@ body {
   border-radius: 50%;
   width: 48px;
   height: 48px;
+  margin: 8px;
 }
 
 .logo {
@@ -27,6 +30,7 @@ body {
   font-size: 32px;
   font-weight: 900;
   font-style: italic;
+  margin-left: 8px;
 }
 
 button {
@@ -35,14 +39,81 @@ button {
   background: rebeccapurple;
   color: white;
   padding: 8px 24px;
+  margin: auto;
+  margin-right: 8px;
+  margin-top: 16px;
 }
 
 a {
-  /* this removes the line under our links */
   text-decoration: none;
   color: rebeccapurple;
 }
 
 ul {
+  display: flex;
+  gap: 8px;
+  padding-left: 16px;
   list-style-type: none;
 }
+
+/* Variant 1*/
+/*
+@import url('https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;1,900&display=swap');
+
+body {
+  margin: 0;
+  background: #eee;
+  font-family: Besley, serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 0 8px rgba(0,0,0,.1);
+}
+
+.left .right {
+  display: flex;
+}
+
+.profile-image {
+  background: rebeccapurple;
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,.5);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin: 16px;
+}
+
+.logo {
+  color: rebeccapurple;
+  font-size: 32px;
+  font-weight: 900;
+  font-style: italic;
+  margin: 16px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  background: rebeccapurple;
+  color: white;
+  padding: 8px 24px;
+  margin: 26px;
+}
+
+a {
+  text-decoration: none;
+  color: rebeccapurple;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px;
+  padding: 8px;
+  list-style-type: none;
+} */
