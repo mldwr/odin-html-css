@@ -41,6 +41,13 @@ body {
   justify-content: flex-end;
 }
 
+a:hover {
+  color: rgb(28, 70, 225);  
+}
+
+button:hover {
+  background-color: rgb(51, 127, 207);
+}
 
 ul {
   list-style-type: none;
