@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+      }
+
+      li button {
+        font-size: 12px;
+        margin-left: 20px;
+        color: #666;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <h1>My shopping list</h1>
+
+    <div>
+      <label for="item">Enter a new item:</label>
+      <input type="text" name="item" id="item">
+      <button id="itmBtn">Add item</button>
+    </div>
+
+    <ul>
+
+    </ul>
+
+    <script>
+
+      function deleteItem(e) {
+        const child = e.target.parentNode;
+        const parent = e.target.parentNode.parentNode;
+        parent.removeChild(child)
+      }
+
+      function addItem(e) {
+        console.log('addItem called');
+
+        // input
+        const itmInpt = document.querySelector("#item").value;
+        console.log('itm',itmInpt);
+
+        // li
+        const li = document.createElement("li");
+        li.textContent = itmInpt;
+        sect.appendChild(li);
+
+        // button
+        const iterAll = document.querySelectorAll("li");
+        const iter = iterAll[iterAll.length-1]
+        console.log('iter ',iter)
+        const btn = document.createElement("button");
+        btn.textContent = "Delete";
+        btn.addEventListener("click", deleteItem);
+        iter.appendChild(btn);
+      }
+
+      const sect = document.querySelector("ul");
+      const itmBtn = document.querySelector("#itmBtn");
+      itmBtn.addEventListener("click", addItem);
+
+
+    </script>
+  </body>
+</html>
