@@ -33,12 +33,6 @@
 
     <script>
 
-      function deleteItem(e) {
-        const child = e.target.parentNode;
-        const parent = e.target.parentNode.parentNode;
-        parent.removeChild(child)
-      }
-
       function addItem(e) {
         console.log('addItem called');
 
@@ -47,21 +41,20 @@
         console.log('itm',itmInpt);
 
         // li
-        const li = document.createElement("li");
-        li.textContent = itmInpt;
-        sect.appendChild(li);
+        const liTag = document.createElement("li");
+        liTag.textContent = itmInpt;
+        ulTag.appendChild(liTag);
 
         // button
-        const iterAll = document.querySelectorAll("li");
-        const iter = iterAll[iterAll.length-1]
-        console.log('iter ',iter)
         const btn = document.createElement("button");
         btn.textContent = "Delete";
-        btn.addEventListener("click", deleteItem);
-        iter.appendChild(btn);
+        btn.addEventListener('click', () => {
+          ulTag.removeChild(liTag);
+        });
+        liTag.appendChild(btn);
       }
 
-      const sect = document.querySelector("ul");
+      const ulTag = document.querySelector("ul");
       const itmBtn = document.querySelector("#itmBtn");
       itmBtn.addEventListener("click", addItem);
 
