@@ -11,16 +11,21 @@
     <div class="content">
       <p>Rock Paper Scissors game: Choose your weapon!</p>
     </div>
-    <div>
-      <button id="btnRock">Rock</button>
-      <button id="btnPaper">Paper</button>
-      <button id="btnScissors">Scissors</button>
+    <div style="display: flex;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div>
+          <button id="btnRock">Rock</button>
+          <button id="btnPaper">Paper</button>
+          <button id="btnScissors">Scissors</button>
+        </div>
+        <div><button id="btnScissors">Clear</button></div>
+      </div>
+      <div>
+        <ul id="output" style="margin: 0px;">  </ul>
+
+      </div>
     </div>
-
-    <ul id="output"> 
-
-    </ul>
-
+      
     <script>
       
       let humanScore = 0;
@@ -37,12 +42,6 @@
 
       function getHumanChoice() {
         const choiceValues = ['rock', 'paper', 'scissors'];
-        /*const inputChoice = prompt('Value between 1 and 3');
-        if(inputChoice>3 || inputChoice<1){
-          console.log('Error: Only values between 1 and 3 are valid, I will choose for you.');
-          return getComputerChoice();
-        }
-        return choiceValues[inputChoice-1] */
         return choiceValues[humanChoice];
       }
 
