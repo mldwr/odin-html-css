@@ -4,11 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Rock Paper Scissors Game</title>
+  </head>
+  <body>
+    <div class="content">
+      <p>Rock Paper Scissors game: Choose your weapon!</p>
+    </div>
+    <div>
+      <button id="btnRock">Rock</button>
+      <button id="btnPaper">Paper</button>
+      <button id="btnScissors">Scissors</button>
+    </div>
+
+    <ul id="output"> 
+
+    </ul>
+
     <script>
-      console.log('Hello World');
       
       let humanScore = 0;
       let computerScore = 0;
+
+      let humanChoice = '';
+      let rounds = 1;
 
       function getComputerChoice(){
         const choiceValues = ['rock', 'paper', 'scissors'];
@@ -18,12 +37,13 @@
 
       function getHumanChoice() {
         const choiceValues = ['rock', 'paper', 'scissors'];
-        const inputChoice = prompt('Value between 1 and 3');
+        /*const inputChoice = prompt('Value between 1 and 3');
         if(inputChoice>3 || inputChoice<1){
           console.log('Error: Only values between 1 and 3 are valid, I will choose for you.');
           return getComputerChoice();
         }
-        return choiceValues[inputChoice-1]
+        return choiceValues[inputChoice-1] */
+        return choiceValues[humanChoice];
       }
 
       function playRound(humanChoice,compChoice){
@@ -31,48 +51,63 @@
         const nrHumanChoice =  choiceValues.indexOf(humanChoice);
         const nrCompChoice =  choiceValues.indexOf(compChoice);
         if(nrHumanChoice === nrCompChoice){
-          console.log('Stalemate, but computer wins anyways, because I AM BATMAN!');
-          return 1;
+          return 'Stalemate, but computer wins anyways, because I AM BATMAN!';
         }else if(nrHumanChoice === 0 && nrCompChoice === 1) {
-          console.log('Computer wins! Hooman loses!');
-          return 1;
+          return 'Computer wins! Hooman loses!';
         }else if(nrHumanChoice === 1 && nrCompChoice === 0){
-          console.log('Hooman wins! Computer loses!');
-          return 0;
+          return 'Hooman wins! Computer loses!';
         }else if(nrHumanChoice === 2 && nrCompChoice === 0) {
-          console.log('Computer wins! Hooman loses!');
-          return 1;
+          return 'Computer wins! Hooman loses!';
         }else if(nrHumanChoice === 0 && nrCompChoice === 2){
-          console.log('Hooman wins! Computer loses!');
-          return 0;
+          return 'Hooman wins! Computer loses!';
         }else if(nrHumanChoice === 1 && nrCompChoice === 2) {
-          console.log('Computer wins! Hooman loses!');
-          return 1;
+          return 'Computer wins! Hooman loses!';
         }else if(nrHumanChoice === 2 && nrCompChoice === 1){
-          console.log('Hooman wins! Computer loses!');
-          return 0;
+          return 'Hooman wins! Computer loses!';
         }
       }
 
-      function playGame() {
-        let rounds = [];
-        for (let index = 0; index < 5; index++) {
-          const humanChoice = getHumanChoice();
-          console.log('humanChoice ', humanChoice);
-          const compChoice = getComputerChoice();
-          console.log('compChoice: ', compChoice);
-          const result = playRound(humanChoice,compChoice);
-          rounds.push(result);
-        }
-        console.log(`Game result: Computer won ${rounds.reduce((accumulator, currentValue) => accumulator + currentValue)} out of 5 rounds.`)
+      function playGame(ulTag) {
+        // rounds
+        const brTag = document.createElement("li");
+        brTag.textContent = `Round ${rounds++}`;
+        ulTag.appendChild(brTag);
+
+        const humanChoice = getHumanChoice();
+        // li
+        const liTagHum = document.createElement("li");
+        liTagHum.textContent = `Human chose ${humanChoice}!`;
+        ulTag.appendChild(liTagHum);
+        const compChoice = getComputerChoice();
+        // li
+        const liTagCom = document.createElement("li");
+        liTagCom.textContent = `Computer chose ${compChoice}!`;
+        ulTag.appendChild(liTagCom);
+        const result = playRound(humanChoice,compChoice);
+        // li
+        const liTagRes = document.createElement("li");
+        liTagRes.textContent = result;
+        ulTag.appendChild(liTagRes);
       }
-      playGame();
+
+
+      const ulTag = document.querySelector("#output");
+      const btnRock = document.querySelector("#btnRock")
+      btnRock.addEventListener("click", () => {
+          humanChoice = 0;
+          playGame(ulTag);
+        });
+      const btnPaper = document.querySelector("#btnPaper")
+      btnPaper.addEventListener("click", () => {
+          humanChoice = 1;
+          playGame(ulTag);
+        });
+      const btnScissors = document.querySelector("#btnScissors")
+      btnScissors.addEventListener("click", () => {
+          humanChoice = 2;
+          playGame(ulTag);
+        });
+
     </script>
-    <title>Rock Paper Scissors Game</title>
-  </head>
-  <body>
-    <div class="content">
-      <p>Rock Paper Scissors game in the console.</p>
-    </div>
   </body>
 </html>
