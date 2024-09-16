@@ -13,7 +13,11 @@
         <p>Rock Paper Scissors game: Choose your weapon!</p>
       </div>
       <div>
-        <div  style="text-align: center; margin-bottom: 10px; border: 5px solid gray;"><p>1 - 1</p></div>
+        <div  style="display: flex; gap: 20px; justify-content: center ;text-align: center; margin-bottom: 10px; border: 5px solid orange;">
+          <div><p style="color: #26e058;">Hooman</p></div>
+          <div><p id="pScore">0 - 0</p></div>
+          <div><p style="color: #de5f6e;">Computer</p></div>
+        </div>
       </div>
       <div style="display: flex;">
         <div style="display: flex; flex-direction: column; gap: 6px; ">
@@ -56,16 +60,22 @@
         if(nrHumanChoice === nrCompChoice){
           return 'Stalemate, but computer wins anyways, because I AM BATMAN!';
         }else if(nrHumanChoice === 0 && nrCompChoice === 1) {
+          computerScore = computerScore+1;
           return 'Computer wins! Hooman loses!';
         }else if(nrHumanChoice === 1 && nrCompChoice === 0){
+          humanScore = humanScore+1;
           return 'Hooman wins! Computer loses!';
         }else if(nrHumanChoice === 2 && nrCompChoice === 0) {
+          computerScore = computerScore+1;
           return 'Computer wins! Hooman loses!';
         }else if(nrHumanChoice === 0 && nrCompChoice === 2){
+          humanScore = humanScore+1;
           return 'Hooman wins! Computer loses!';
         }else if(nrHumanChoice === 1 && nrCompChoice === 2) {
+          computerScore = computerScore+1;
           return 'Computer wins! Hooman loses!';
         }else if(nrHumanChoice === 2 && nrCompChoice === 1){
+          humanScore = humanScore+1;
           return 'Hooman wins! Computer loses!';
         }
       }
@@ -91,7 +101,7 @@
         const colorLose = "#de5f6e";
         const colorTie = "#f2f5f3";
         let colorResult = result.startsWith('Hooman wins') ? colorWin : result.startsWith("Stalemate") ? colorTie : colorLose
-        ulTag.setAttribute("style", `background: ${colorResult}; margin: 2px; padding: 4px; border-radius: 10px;`);
+        ulTag.setAttribute("style", `background: ${colorResult}; margin: 2px; padding: 4px; border-radius: 10px; list-style-type: none;`);
         // li
         const liTagRes = document.createElement("li");
         liTagRes.textContent = result;
@@ -101,32 +111,56 @@
         ulTag.insertBefore(liTagHum,ulTag.firstElementChild);
         ulTag.insertBefore(brTag,ulTag.firstElementChild);
         ulTagParent.insertBefore(ulTag, ulTagParent.firstElementChild);
+
+        updateScore();
+      
+      }
+
+      function updateScore() {
+          
+        const pScore = document.querySelector("#pScore");
+        pScore.textContent = `${humanScore} - ${computerScore}`;
+        let totalScore = humanScore+computerScore;
+
+        if(totalScore===5){
+          if(humanScore>computerScore){
+            alert("Hooman won!");
+          }else{
+            alert("Computer won!")
+          }
+          
+        }
+
       }
 
 
       const ulTag = document.querySelector("#output");
-      const btnRock = document.querySelector("#btnRock")
+      const btnRock = document.querySelector("#btnRock");
       btnRock.addEventListener("click", () => {
           humanChoice = 0;
           playGame(ulTag);
         });
-      const btnPaper = document.querySelector("#btnPaper")
+      const btnPaper = document.querySelector("#btnPaper");
       btnPaper.addEventListener("click", () => {
           humanChoice = 1;
           playGame(ulTag);
         });
-      const btnScissors = document.querySelector("#btnScissors")
+      const btnScissors = document.querySelector("#btnScissors");
       btnScissors.addEventListener("click", () => {
           humanChoice = 2;
           playGame(ulTag);
         });
-      const btnClear = document.querySelector("#btnClear")
-      btnClear.addEventListener("click", () => {    
-            rounds=1;
-            while (ulTag.firstChild) {
+      const btnClear = document.querySelector("#btnClear");
+      btnClear.addEventListener("click", () => {  
+          rounds=1;
+          while (ulTag.firstChild) {
               ulTag.removeChild(ulTag.firstChild);
           }
+          humanScore=0;
+          computerScore=0;  
+          updateScore();
         });
+      
       
 
     </script>
