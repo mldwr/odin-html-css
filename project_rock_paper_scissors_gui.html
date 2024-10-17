@@ -9,6 +9,9 @@
   </head>
   <body style="overflow-y: scroll;">
     <div class="container" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+      <div id="toast" style="display: none; position: absolute; top: 10px; right: 50%; background-color: lightcoral; padding: 10px; border-radius: 5px; color: white;">
+        This is a toast message!
+      </div>
       <div class="title">
         <p>Rock Paper Scissors game: Choose your weapon!</p>
       </div>
@@ -26,7 +29,7 @@
             <button id="btnPaper">Paper</button>
             <button id="btnScissors">Scissors</button>
           </div>
-          <div><button id="btnClear">Clear</button></div>
+          <div><button id="btnClear">Restart Game</button></div>
         </div>
         <div>
           <ul id="output" style="margin: 0px;">  </ul>
@@ -40,7 +43,7 @@
       let computerScore = 0;
 
       let humanChoice = '';
-      let rounds = 1;
+      let rounds = 0;
 
       function getComputerChoice(){
         const choiceValues = ['rock', 'paper', 'scissors'];
@@ -58,7 +61,7 @@
         const nrHumanChoice =  choiceValues.indexOf(humanChoice);
         const nrCompChoice =  choiceValues.indexOf(compChoice);
         if(nrHumanChoice === nrCompChoice){
-          return 'Stalemate, but computer wins anyways, because I AM BATMAN!';
+          return 'Stalemate';
         }else if(nrHumanChoice === 0 && nrCompChoice === 1) {
           computerScore = computerScore+1;
           return 'Computer wins! Hooman loses!';
@@ -84,7 +87,7 @@
         const ulTag = document.createElement("ul");
         // rounds
         const brTag = document.createElement("li");
-        brTag.textContent = `Round ${rounds++}`;
+        brTag.textContent = `Round ${++rounds}`;
         //ulTag.appendChild(brTag);
 
         const humanChoice = getHumanChoice();
@@ -112,7 +115,20 @@
         ulTag.insertBefore(brTag,ulTag.firstElementChild);
         ulTagParent.insertBefore(ulTag, ulTagParent.firstElementChild);
 
+
+        ulTagParent.insertBefore(ulTag, ulTagParent.firstElementChild);
         updateScore();
+
+
+        if(rounds>=5){
+          if(humanScore>computerScore){
+            showToast(ulTagParent,`Hooman won!`);
+          }else if(humanScore<computerScore){
+            showToast(ulTagParent, `Computer won!`);
+          }else{
+            showToast(ulTagParent, `It's a tie!`);
+          }
+        }
       
       }
 
@@ -122,15 +138,41 @@
         pScore.textContent = `${humanScore} - ${computerScore}`;
         let totalScore = humanScore+computerScore;
 
-        if(totalScore===5){
-          if(humanScore>computerScore){
-            alert("Hooman won!");
-          }else{
-            alert("Computer won!")
-          }
-          
-        }
+        return totalScore;
 
+      }
+
+      function clearGame(ulTagParent) {
+
+        rounds=0;
+        while (ulTag.firstChild) {
+            ulTag.removeChild(ulTag.firstChild);
+        }
+        humanScore=0;
+        computerScore=0;  
+        updateScore();
+      }
+
+      function showToast(ulTagParent, message) {
+        const toast = document.getElementById('toast');
+        toast.innerText = message;
+        toast.style.display = 'block';
+        toggleButtonState();
+
+        // Hide the toast after 3 seconds
+        setTimeout(() => {
+          toast.style.display = 'none';
+          clearGame(ulTagParent);
+          toggleButtonState();
+        }, 3000);
+
+      }
+
+      function toggleButtonState() {
+        const buttons = document.querySelectorAll('button'); // Select all buttons
+        buttons.forEach(button => {
+          button.disabled = !button.disabled; // Toggle disabled state
+        });
       }
 
 
@@ -152,13 +194,7 @@
         });
       const btnClear = document.querySelector("#btnClear");
       btnClear.addEventListener("click", () => {  
-          rounds=1;
-          while (ulTag.firstChild) {
-              ulTag.removeChild(ulTag.firstChild);
-          }
-          humanScore=0;
-          computerScore=0;  
-          updateScore();
+          clearGame(ulTag);
         });
       
       
