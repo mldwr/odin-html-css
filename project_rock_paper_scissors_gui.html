@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Rock Paper Scissors Game</title>
+  </head>
+  <body style="overflow-y: scroll;">
+    <div class="container" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+      <div id="toast" style="display: none; position: absolute; top: 10px; right: 50%; background-color: lightcoral; padding: 10px; border-radius: 5px; color: white;">
+        This is a toast message!
+      </div>
+      <div class="title">
+        <p>Rock Paper Scissors game: Choose your weapon!</p>
+      </div>
+      <div>
+        <div  style="display: flex; gap: 20px; justify-content: center ;text-align: center; margin-bottom: 10px; border: 5px solid orange;">
+          <div><p style="color: #26e058;">Hooman</p></div>
+          <div><p id="pScore">0 - 0</p></div>
+          <div><p style="color: #de5f6e;">Computer</p></div>
+        </div>
+      </div>
+      <div style="display: flex;">
+        <div style="display: flex; flex-direction: column; gap: 6px; ">
+          <div>
+            <button id="btnRock">Rock</button>
+            <button id="btnPaper">Paper</button>
+            <button id="btnScissors">Scissors</button>
+          </div>
+          <div><button id="btnClear">Restart Game</button></div>
+        </div>
+        <div>
+          <ul id="output" style="margin: 0px;">  </ul>
+
+        </div>
+      </div>
+    </div>
+    <script>
+      
+      let humanScore = 0;
+      let computerScore = 0;
+
+      let humanChoice = '';
+      let rounds = 0;
+
+      function getComputerChoice(){
+        const choiceValues = ['rock', 'paper', 'scissors'];
+        const rnd = Math.ceil(Math.random()*3)-1;
+        return choiceValues[rnd];
+      }
+
+      function getHumanChoice() {
+        const choiceValues = ['rock', 'paper', 'scissors'];
+        return choiceValues[humanChoice];
+      }
+
+      function playRound(humanChoice,compChoice){
+        const choiceValues = ['rock', 'paper', 'scissors'];
+        const nrHumanChoice =  choiceValues.indexOf(humanChoice);
+        const nrCompChoice =  choiceValues.indexOf(compChoice);
+        if(nrHumanChoice === nrCompChoice){
+          return 'Stalemate';
+        }else if(nrHumanChoice === 0 && nrCompChoice === 1) {
+          computerScore = computerScore+1;
+          return 'Computer wins! Hooman loses!';
+        }else if(nrHumanChoice === 1 && nrCompChoice === 0){
+          humanScore = humanScore+1;
+          return 'Hooman wins! Computer loses!';
+        }else if(nrHumanChoice === 2 && nrCompChoice === 0) {
+          computerScore = computerScore+1;
+          return 'Computer wins! Hooman loses!';
+        }else if(nrHumanChoice === 0 && nrCompChoice === 2){
+          humanScore = humanScore+1;
+          return 'Hooman wins! Computer loses!';
+        }else if(nrHumanChoice === 1 && nrCompChoice === 2) {
+          computerScore = computerScore+1;
+          return 'Computer wins! Hooman loses!';
+        }else if(nrHumanChoice === 2 && nrCompChoice === 1){
+          humanScore = humanScore+1;
+          return 'Hooman wins! Computer loses!';
+        }
+      }
+
+      function playGame(ulTagParent) {
+        const ulTag = document.createElement("ul");
+        // rounds
+        const brTag = document.createElement("li");
+        brTag.textContent = `Round ${++rounds}`;
+        //ulTag.appendChild(brTag);
+
+        const humanChoice = getHumanChoice();
+        // li
+        const liTagHum = document.createElement("li");
+        liTagHum.textContent = `Human chose ${humanChoice}!`;
+        const compChoice = getComputerChoice();
+        // li
+        const liTagCom = document.createElement("li");
+        liTagCom.textContent = `Computer chose ${compChoice}!`;
+        const result = playRound(humanChoice,compChoice);
+        // depeding on the result change the background color: green, red, grey
+        const colorWin = "#26e058";
+        const colorLose = "#de5f6e";
+        const colorTie = "#f2f5f3";
+        let colorResult = result.startsWith('Hooman wins') ? colorWin : result.startsWith("Stalemate") ? colorTie : colorLose
+        ulTag.setAttribute("style", `background: ${colorResult}; margin: 2px; padding: 4px; border-radius: 10px; list-style-type: none;`);
+        // li
+        const liTagRes = document.createElement("li");
+        liTagRes.textContent = result;
+        // append Elements
+        ulTag.insertBefore(liTagRes,ulTag.firstElementChild);
+        ulTag.insertBefore(liTagCom,ulTag.firstElementChild);
+        ulTag.insertBefore(liTagHum,ulTag.firstElementChild);
+        ulTag.insertBefore(brTag,ulTag.firstElementChild);
+        ulTagParent.insertBefore(ulTag, ulTagParent.firstElementChild);
+
+
+        ulTagParent.insertBefore(ulTag, ulTagParent.firstElementChild);
+        updateScore();
+
+
+        if(rounds>=5){
+          if(humanScore>computerScore){
+            showToast(ulTagParent,`Hooman won!`);
+          }else if(humanScore<computerScore){
+            showToast(ulTagParent, `Computer won!`);
+          }else{
+            showToast(ulTagParent, `It's a tie!`);
+          }
+        }
+      
+      }
+
+      function updateScore() {
+          
+        const pScore = document.querySelector("#pScore");
+        pScore.textContent = `${humanScore} - ${computerScore}`;
+        let totalScore = humanScore+computerScore;
+
+        return totalScore;
+
+      }
+
+      function clearGame(ulTagParent) {
+
+        rounds=0;
+        while (ulTag.firstChild) {
+            ulTag.removeChild(ulTag.firstChild);
+        }
+        humanScore=0;
+        computerScore=0;  
+        updateScore();
+      }
+
+      function showToast(ulTagParent, message) {
+        const toast = document.getElementById('toast');
+        toast.innerText = message;
+        toast.style.display = 'block';
+        toggleButtonState();
+
+        // Hide the toast after 3 seconds
+        setTimeout(() => {
+          toast.style.display = 'none';
+          clearGame(ulTagParent);
+          toggleButtonState();
+        }, 3000);
+
+      }
+
+      function toggleButtonState() {
+        const buttons = document.querySelectorAll('button'); // Select all buttons
+        buttons.forEach(button => {
+          button.disabled = !button.disabled; // Toggle disabled state
+        });
+      }
+
+
+      const ulTag = document.querySelector("#output");
+      const btnRock = document.querySelector("#btnRock");
+      btnRock.addEventListener("click", () => {
+          humanChoice = 0;
+          playGame(ulTag);
+        });
+      const btnPaper = document.querySelector("#btnPaper");
+      btnPaper.addEventListener("click", () => {
+          humanChoice = 1;
+          playGame(ulTag);
+        });
+      const btnScissors = document.querySelector("#btnScissors");
+      btnScissors.addEventListener("click", () => {
+          humanChoice = 2;
+          playGame(ulTag);
+        });
+      const btnClear = document.querySelector("#btnClear");
+      btnClear.addEventListener("click", () => {  
+          clearGame(ulTag);
+        });
+      
+      
+
+    </script>
+  </body>
+</html>
