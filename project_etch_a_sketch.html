@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16x16 Grid with Flexbox</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            gap: 20px
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            width: 640px; 
+            height: 640px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+        .square {
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            background-color: white;
+            transition: background-color 0.2s;
+        }
+        .square:hover {
+            background-color: rgb(73, 72, 183);
+        }
+        .active{
+            background-color: rgb(113, 112, 190);
+        }
+        .menu{
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <input type="range" id="squareCount" min="2" max="99" value="16">
+        <label for="squareCount">Number of Squares: <span id="countDisplay">16</span></label>
+    </div>
+
+    <div class="grid" id="grid">
+        <script>
+            const grid = document.getElementById('grid');
+            const slider = document.getElementById('squareCount');
+            const countDisplay = document.getElementById('countDisplay');
+            const gridSize = 640; 
+            
+            function updateGrid() {
+                grid.innerHTML = '';
+                const squareCount = slider.value;
+                countDisplay.textContent = squareCount;
+
+                const squareSize = gridSize / squareCount;
+
+                for (let i = 0; i < squareCount * squareCount; i++) {
+                    const square = document.createElement('div');
+                    square.classList.add('square');
+                    square.style.width = `${squareSize}px`;
+                    square.style.height = `${squareSize}px`;
+                    square.addEventListener('mouseover', () => {
+                        square.classList.add('active'); 
+                    });
+                    grid.appendChild(square);
+                }
+            }
+
+            updateGrid();
+
+            slider.addEventListener('input', updateGrid);
+            
+        </script>
+    </div>
+</body>
+</html>
