@@ -24,9 +24,8 @@
         .square {
             border: 1px solid #ccc;
             box-sizing: border-box;
-            background-color: white;
-            transition: background-color 0.2s;
         }
+
         .square:hover {
             background-color: rgb(73, 72, 183);
         }
@@ -36,21 +35,91 @@
         .menu{
             display: flex;
             flex-direction: column;
+            gap: 20px;
         }
+        .input{
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            background-color: #bff0bf;
+            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #81f081;
+        }
+
+        button:active {
+            background-color: #81f081;
+            transform: scale(0.88);
+        }
+
+        button:focus {
+            outline: none;
+            border-color: #1ba61b;
+        }
+
     </style>
 </head>
 <body>
     <div class="menu">
-        <input type="range" id="squareCount" min="2" max="99" value="16">
-        <label for="squareCount">Number of Squares: <span id="countDisplay">16</span></label>
+        <div class="input">
+            <input type="range" id="squareCount" min="2" max="99" value="16">
+            <label for="squareCount">Number of Squares: <span id="countDisplay">16</span></label>
+        </div>
+        <button id="clearButton">Clear Screen</button>
+        <button id="colorModeButton">Random Color Mode: Off</button>
+        <button id="darkenModeButton">Darken Mode: Off</button>
     </div>
 
     <div class="grid" id="grid">
         <script>
             const grid = document.getElementById('grid');
             const slider = document.getElementById('squareCount');
+            const clearButton = document.getElementById('clearButton');
+            const colorModeButton = document.getElementById('colorModeButton');
+            let randomColorMode = false; // Mode flag
+            const darkenModeButton = document.getElementById('darkenModeButton');
+            let darkenMode = false; // Mode flag
             const countDisplay = document.getElementById('countDisplay');
             const gridSize = 640; 
+            
+            // Function to generate random color
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            // Toggle the random color mode
+            function toggleColorMode() {
+                randomColorMode = !randomColorMode; // Switch between modes
+                colorModeButton.textContent = `Random Color Mode: ${randomColorMode ? 'On' : 'Off'}`; // Update button text
+            }
+
+
+            // Toggle color mode when button is clicked
+            colorModeButton.addEventListener('click', toggleColorMode);
+
+            // Toggle the random darken mode
+            function toggleDarkenMode() {
+                darkenMode = !darkenMode; // Switch between modes
+                darkenModeButton.textContent = `Darken Mode: ${darkenMode ? 'On' : 'Off'}`; // Update button text
+            }
+
+            // Toggle darken mode when button is clicked
+            darkenModeButton.addEventListener('click', toggleDarkenMode);
             
             function updateGrid() {
                 grid.innerHTML = '';
@@ -64,8 +133,19 @@
                     square.classList.add('square');
                     square.style.width = `${squareSize}px`;
                     square.style.height = `${squareSize}px`;
+                    // Add event listeners for trail effect or random color based on mode
                     square.addEventListener('mouseover', () => {
-                        square.classList.add('active'); 
+                        if (randomColorMode) {
+                            square.style.backgroundColor = getRandomColor(); // Change to random color
+                        } else if (darkenMode) {
+                            let currentColor = window.getComputedStyle(square).backgroundColor;
+                            let rgb = currentColor.match(/\d+/g).map(Number); // Extract RGB values
+                            // Decrease each RGB value by 25 to darken (or limit at 0 to avoid negative values)
+                            let newColor = `rgb(${Math.max(rgb[0] - 25, 0)}, ${Math.max(rgb[1] - 25, 0)}, ${Math.max(rgb[2] - 25, 0)})`;
+                            square.style.backgroundColor = newColor; // Apply the new color
+                        } else {
+                            square.classList.add('active'); // Default trail effect
+                        }
                     });
                     grid.appendChild(square);
                 }
@@ -74,7 +154,8 @@
             updateGrid();
 
             slider.addEventListener('input', updateGrid);
-            
+            clearButton.addEventListener('click', updateGrid);
+
         </script>
     </div>
 </body>

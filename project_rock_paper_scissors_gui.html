@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Rock Paper Scissors Game</title>
   </head>
   <body style="overflow-y: scroll;">
+    <!-- Container to hold the game interface -->
     <div class="container" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+      
+      <!-- Toast message (initially hidden), shown after 5 rounds -->
       <div id="toast" style="display: none; position: absolute; top: 10px; right: 50%; background-color: lightcoral; padding: 10px; border-radius: 5px; color: white;">
         This is a toast message!
       </div>
+      
+      <!-- Title of the game -->
       <div class="title">
         <p>Rock Paper Scissors game: Choose your weapon!</p>
       </div>
-      <div>
-        <div  style="display: flex; gap: 20px; justify-content: center ;text-align: center; margin-bottom: 10px; border: 5px solid orange;">
-          <div><p style="color: #26e058;">Hooman</p></div>
-          <div><p id="pScore">0 - 0</p></div>
-          <div><p style="color: #de5f6e;">Computer</p></div>
-        </div>
+      
+      <!-- Scoreboard showing "Hooman" and "Computer" scores -->
+      <div style="display: flex; gap: 20px; justify-content: center ;text-align: center; margin-bottom: 10px; border: 5px solid orange;">
+        <div><p style="color: #26e058;">Hooman</p></div>
+        <div><p id="pScore">0 - 0</p></div>
+        <div><p style="color: #de5f6e;">Computer</p></div>
       </div>
+      
+      <!-- Game controls: Rock, Paper, Scissors, and Restart button -->
       <div style="display: flex;">
         <div style="display: flex; flex-direction: column; gap: 6px; ">
           <div>
@@ -31,173 +37,188 @@
           </div>
           <div><button id="btnClear">Restart Game</button></div>
         </div>
+        
+        <!-- Output area to show game results -->
         <div>
-          <ul id="output" style="margin: 0px;">  </ul>
-
+          <ul id="output" style="margin: 0px;"></ul>
         </div>
       </div>
     </div>
+
+    <!-- 
+    Pseudocode
+        Initialize variables:
+
+        humanScore, computerScore to track scores.
+        humanChoice, rounds to store the human's choice and count the rounds.
+        Get computer's choice:
+
+        Randomly choose between rock, paper, or scissors.
+        Play a round:
+
+        Get human and computer choices.
+        Compare them to determine the winner or if it's a tie.
+        Update the score accordingly.
+        Update the scoreboard.
+
+        Play the game:
+
+        Display round results (choices and outcome).
+        After 5 rounds, show a toast with the overall winner (or tie) and reset the game.
+        Clear game:
+
+        Reset all values and remove output elements.
+        Handle user interaction:
+
+        Add event listeners for each button (rock, paper, scissors, and restart).
+    -->
     <script>
-      
-      let humanScore = 0;
-      let computerScore = 0;
+      const choiceValues = ['rock', 'paper', 'scissors'];
+      let humanScore = 0; // Tracks the score of the human
+      let computerScore = 0; // Tracks the score of the computer
+      let humanChoice = ''; // Stores the choice made by the human
+      let rounds = 0; // Tracks the number of rounds played
 
-      let humanChoice = '';
-      let rounds = 0;
-
+      // Function to generate the computer's choice randomly
       function getComputerChoice(){
-        const choiceValues = ['rock', 'paper', 'scissors'];
-        const rnd = Math.ceil(Math.random()*3)-1;
-        return choiceValues[rnd];
+        const rnd = Math.ceil(Math.random()*3)-1; // Random index between 0 and 2
+        return choiceValues[rnd]; // Returns the choice at the random index
       }
 
+      // Retrieves the human's choice
       function getHumanChoice() {
-        const choiceValues = ['rock', 'paper', 'scissors'];
-        return choiceValues[humanChoice];
+        return choiceValues[humanChoice]; // Converts the numerical choice to string (e.g., 0 -> 'rock')
       }
 
-      function playRound(humanChoice,compChoice){
-        const choiceValues = ['rock', 'paper', 'scissors'];
-        const nrHumanChoice =  choiceValues.indexOf(humanChoice);
-        const nrCompChoice =  choiceValues.indexOf(compChoice);
-        if(nrHumanChoice === nrCompChoice){
-          return 'Stalemate';
-        }else if(nrHumanChoice === 0 && nrCompChoice === 1) {
-          computerScore = computerScore+1;
+      // Function to compare choices and determine the winner
+      function playRound(humanChoice, compChoice){
+        const nrHumanChoice = choiceValues.indexOf(humanChoice); // Converts human choice to index
+        const nrCompChoice = choiceValues.indexOf(compChoice); // Converts computer choice to index
+        
+        if (nrHumanChoice === nrCompChoice) {
+          return 'Stalemate'; // If both choices are the same
+        } else if (nrHumanChoice === 0 && nrCompChoice === 1 || nrHumanChoice === 2 && nrCompChoice === 0 || nrHumanChoice === 1 && nrCompChoice === 2) {
+          computerScore++; // Computer wins in certain scenarios
           return 'Computer wins! Hooman loses!';
-        }else if(nrHumanChoice === 1 && nrCompChoice === 0){
-          humanScore = humanScore+1;
-          return 'Hooman wins! Computer loses!';
-        }else if(nrHumanChoice === 2 && nrCompChoice === 0) {
-          computerScore = computerScore+1;
-          return 'Computer wins! Hooman loses!';
-        }else if(nrHumanChoice === 0 && nrCompChoice === 2){
-          humanScore = humanScore+1;
-          return 'Hooman wins! Computer loses!';
-        }else if(nrHumanChoice === 1 && nrCompChoice === 2) {
-          computerScore = computerScore+1;
-          return 'Computer wins! Hooman loses!';
-        }else if(nrHumanChoice === 2 && nrCompChoice === 1){
-          humanScore = humanScore+1;
+        } else {
+          humanScore++; // Human wins otherwise
           return 'Hooman wins! Computer loses!';
         }
       }
 
+      // Function to play a round and update the UI
       function playGame(ulTagParent) {
         const ulTag = document.createElement("ul");
-        // rounds
+
+        // Display round number
         const brTag = document.createElement("li");
         brTag.textContent = `Round ${++rounds}`;
-        //ulTag.appendChild(brTag);
 
+        // Show human choice
         const humanChoice = getHumanChoice();
-        // li
         const liTagHum = document.createElement("li");
         liTagHum.textContent = `Human chose ${humanChoice}!`;
+
+        // Show computer choice
         const compChoice = getComputerChoice();
-        // li
         const liTagCom = document.createElement("li");
         liTagCom.textContent = `Computer chose ${compChoice}!`;
-        const result = playRound(humanChoice,compChoice);
-        // depeding on the result change the background color: green, red, grey
-        const colorWin = "#26e058";
-        const colorLose = "#de5f6e";
-        const colorTie = "#f2f5f3";
-        let colorResult = result.startsWith('Hooman wins') ? colorWin : result.startsWith("Stalemate") ? colorTie : colorLose
+
+        // Determine and show the result of the round
+        const result = playRound(humanChoice, compChoice);
+        const colorWin = "#26e058"; // Green for human win
+        const colorLose = "#de5f6e"; // Red for computer win
+        const colorTie = "#f2f5f3"; // Gray for a tie
+        let colorResult = result.startsWith('Hooman wins') ? colorWin : result.startsWith("Stalemate") ? colorTie : colorLose;
         ulTag.setAttribute("style", `background: ${colorResult}; margin: 2px; padding: 4px; border-radius: 10px; list-style-type: none;`);
-        // li
+
+        // Show result
         const liTagRes = document.createElement("li");
         liTagRes.textContent = result;
-        // append Elements
-        ulTag.insertBefore(liTagRes,ulTag.firstElementChild);
-        ulTag.insertBefore(liTagCom,ulTag.firstElementChild);
-        ulTag.insertBefore(liTagHum,ulTag.firstElementChild);
-        ulTag.insertBefore(brTag,ulTag.firstElementChild);
+
+        // Append all elements to the output list
+        ulTag.insertBefore(liTagRes, ulTag.firstElementChild);
+        ulTag.insertBefore(liTagCom, ulTag.firstElementChild);
+        ulTag.insertBefore(liTagHum, ulTag.firstElementChild);
+        ulTag.insertBefore(brTag, ulTag.firstElementChild);
         ulTagParent.insertBefore(ulTag, ulTagParent.firstElementChild);
 
-
-        ulTagParent.insertBefore(ulTag, ulTagParent.firstElementChild);
+        // Update the score on the scoreboard
         updateScore();
 
-
-        if(rounds>=5){
-          if(humanScore>computerScore){
-            showToast(ulTagParent,`Hooman won!`);
-          }else if(humanScore<computerScore){
+        // After 5 rounds, show the overall winner
+        if (rounds >= 5) {
+          if (humanScore > computerScore) {
+            showToast(ulTagParent, `Hooman won!`);
+          } else if (humanScore < computerScore) {
             showToast(ulTagParent, `Computer won!`);
-          }else{
+          } else {
             showToast(ulTagParent, `It's a tie!`);
           }
         }
-      
       }
 
+      // Update the scoreboard
       function updateScore() {
-          
         const pScore = document.querySelector("#pScore");
-        pScore.textContent = `${humanScore} - ${computerScore}`;
-        let totalScore = humanScore+computerScore;
-
-        return totalScore;
-
+        pScore.textContent = `${humanScore} - ${computerScore}`; // Displays human vs. computer score
       }
 
+      // Clear the game state and reset everything
       function clearGame(ulTagParent) {
-
-        rounds=0;
+        rounds = 0;
         while (ulTag.firstChild) {
-            ulTag.removeChild(ulTag.firstChild);
+          ulTag.removeChild(ulTag.firstChild); // Clear all output
         }
-        humanScore=0;
-        computerScore=0;  
-        updateScore();
+        humanScore = 0;
+        computerScore = 0;
+        updateScore(); // Reset score display
       }
 
+      // Show the toast message with the game result and reset game after 3 seconds
       function showToast(ulTagParent, message) {
         const toast = document.getElementById('toast');
         toast.innerText = message;
         toast.style.display = 'block';
-        toggleButtonState();
+        toggleButtonState(); // Disable buttons during toast
 
-        // Hide the toast after 3 seconds
+        // Hide toast after 3 seconds and reset the game
         setTimeout(() => {
           toast.style.display = 'none';
           clearGame(ulTagParent);
-          toggleButtonState();
+          toggleButtonState(); // Re-enable buttons
         }, 3000);
-
       }
 
+      // Enable or disable all buttons
       function toggleButtonState() {
-        const buttons = document.querySelectorAll('button'); // Select all buttons
+        const buttons = document.querySelectorAll('button');
         buttons.forEach(button => {
-          button.disabled = !button.disabled; // Toggle disabled state
+          button.disabled = !button.disabled;
         });
       }
 
-
+      // Attach event listeners to the buttons for gameplay
       const ulTag = document.querySelector("#output");
       const btnRock = document.querySelector("#btnRock");
       btnRock.addEventListener("click", () => {
-          humanChoice = 0;
+          humanChoice = 0; // Set human choice to rock
           playGame(ulTag);
-        });
+      });
       const btnPaper = document.querySelector("#btnPaper");
       btnPaper.addEventListener("click", () => {
-          humanChoice = 1;
+          humanChoice = 1; // Set human choice to paper
           playGame(ulTag);
-        });
+      });
       const btnScissors = document.querySelector("#btnScissors");
       btnScissors.addEventListener("click", () => {
-          humanChoice = 2;
+          humanChoice = 2; // Set human choice to scissors
           playGame(ulTag);
-        });
+      });
       const btnClear = document.querySelector("#btnClear");
-      btnClear.addEventListener("click", () => {  
-          clearGame(ulTag);
-        });
-      
-      
+      btnClear.addEventListener("click", () => {
+          clearGame(ulTag); // Restart game when clear button is clicked
+      });
 
     </script>
   </body>
