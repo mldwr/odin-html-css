@@ -1,0 +1,16 @@
+{
+  "name": "odin-html-css",
+  "version": "1.0.0",
+  "description": "The Odin Project - HTML and CSS",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
