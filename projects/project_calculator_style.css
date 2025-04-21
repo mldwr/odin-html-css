@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .calculator {
+    width: 280px;
+    background-color: #4a4a4a;
+    border-radius: 18px;
+    padding: 20px 15px;
+    box-shadow: 0 50px 60px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  
+  .window-controls {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 8px;
+  }
+  
+  .control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  
+  .red {
+    background-color: #ff5f56;
+  }
+  
+  .yellow {
+    background-color: #ffbd2e;
+  }
+  
+  .gray {
+    background-color: #929292;
+  }
+  
+  .display {
+    text-align: right;
+    color: white;
+    font-size: 64px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    padding: 10px;
+    height: 90px;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  
+  .btn {
+    border: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 2px;
+  }
+  
+  .gray-btn {
+    background-color: #a5a5a5;
+  }
+
+  .black-btn {
+    background-color: #686767;
+  }
+
+  .blank-btn {
+    background-color: #4a4a4a;
+  }
+  
+  .orange-btn {
+    background-color: #ff9f0a;
+    font-weight: bold;
+  }
+  
+
+  .gray-btn:hover { 
+    background-color: #c7c7c7; 
+}
+
+  .orange-btn:hover { 
+    background-color: #ffb143; 
+}
+
+  .black-btn:hover { 
+    background-color: #8b8989; 
+}
+
+  
+  .btn:active {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+
+  
