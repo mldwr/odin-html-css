@@ -81,13 +81,20 @@
     background-color: #a5a5a5;
   }
 
+  .dbl-btn {
+    width: 120px;
+    border-radius: 30px;
+  }
+
+  .trpl-btn {
+    width: 180px;
+    border-radius: 25px;
+  }
+  
   .black-btn {
     background-color: #686767;
   }
 
-  .blank-btn {
-    background-color: #4a4a4a;
-  }
   
   .orange-btn {
     background-color: #ff9f0a;
