@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  font-family: "Inter","Helvetica Neue","Helvetica","Arial","sans-serif";
+  display: flex;
+  min-height: 100vh;
+}
+
+
+
+.image-container {
+  width: 40%;
+  min-width: 300px;
+  background-image: url('../images/odin_background.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.image-logo {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  background-color: rgba(180, 177, 177, 0.4);
+  color: rgb(244, 243, 241);
+  font-family: 'Viking Bold', fantasy;
+  padding: 20px;
+  margin-top: 30vh;
+  font-size: 5rem;
+}
+
+.image-credit {
+  font-size: 0.8rem;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.image-credit a {
+    color: white;
+    text-decoration: none;
+}
+
+.form-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f0f4f8;
+}
+
+.form-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  line-height: 1.5;
+  padding: 0 180px 0 40px;
+}
+
+.form-section {
+  margin-bottom: 30px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 180px 0 40px;
+  max-width: 800px;
+  border-radius: 8px;
+}
+
+.form-actions {
+  margin: 30px;
+}
+
+.form-actions a {
+  color: #596D48;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.form-fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.input-group {
+  flex: 0 0 calc(50% - 10px);
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #596D48; /* Green color matching your theme */
+  box-shadow: 0 0 5px rgba(89, 109, 72, 0.5);
+}
+
+input:invalid {
+  outline: none;
+  border-color: #b22535; 
+  box-shadow: 0 0 5px rgba(223, 17, 17, 0.5);
+}
+
+button {
+  background-color: #596D48;
+  color: #f9faf8;
+  border-color: #596D48;
+  border-style: solid;
+  padding: 10px 40px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+button:hover {
+  background-color: #91b174;
+  border-color: #91b174;
+}
