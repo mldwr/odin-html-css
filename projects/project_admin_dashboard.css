@@ -175,7 +175,7 @@
 
 .projects-container {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
   background-color: #ededed;
   padding: 20px;
   gap: 20px;
@@ -184,8 +184,9 @@
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  align-content: start;
+  grid-template-rows: auto; /* First row (title) is auto-sized */
+  grid-auto-rows: 1fr;      /* All subsequent card rows fill the remaining space */
+  gap: 10px;
 }
 
 .projects-title {
@@ -201,11 +202,25 @@
   color: black;
   border-radius: 10px;
   padding: 30px;
+  margin-bottom: 20px;
+  margin-right: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   border-left: 8px solid orange;
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.projects-container .card-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: auto; /* Push the icons to the bottom of the card */
+}
+
+.projects-container .card-icons img {
+  width: 25px;
+  height: 25px;
 }
 
 .card p {
@@ -235,7 +250,7 @@
 .trending-section {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* This gap ensures the distance between title and card matches the main grid gap */
+  gap: 10px; /* This gap ensures the distance between title and card matches the main grid gap */
 }
 
 .announcements-section .card,
@@ -273,10 +288,27 @@
 .trending-greeting {
   display: flex;
   align-items: center;
+  gap: 10px;
 } 
 
-.trending-greeting-name-container p {
-  padding: 1px;
+.trending-greeting-name-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.trending-greeting-name {
+  font-size: 10px; /* Increased slightly for readability, but kept small as requested */
+  color: #666;
+  font-weight: normal;
+}
+
+.trending-greeting-text {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.trending-card .trending-greeting-name {
+  font-size: 10px; /* High specificity to override .card p */
 }
 
 .trending-card {
