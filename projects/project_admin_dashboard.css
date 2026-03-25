@@ -193,7 +193,6 @@
   font-weight: bold;
   color: black;
   grid-column: 1 / -1;
-  margin-bottom: 10px;
   text-align: left;
 }
 
@@ -236,6 +235,7 @@
 .trending-section {
   display: flex;
   flex-direction: column;
+  gap: 20px; /* This gap ensures the distance between title and card matches the main grid gap */
 }
 
 .announcements-section .card,
