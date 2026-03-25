@@ -26,7 +26,13 @@
 }
 
 .sidebar div {
-  padding: 5px;
+  padding: 15px;
+}
+
+.sidebar .sidebar-main img{
+  width: 45px;
+  height: 45px;
+  filter: invert(1) brightness(200%);
 }
 
 .sidebar .side-content {
@@ -203,7 +209,6 @@
   background-color: #FFFFFF;
   color: black;
   text-align: center;
-  height: 170px;
   border-radius: 10px;
 }
 
@@ -223,12 +228,34 @@
 
 .projects-sidebar {
   background-color: #ededed;
-  gap: 15px;
+  gap: 5px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.projects-sidebar div {
-  padding: 5px;
-  margin: 5px;
+.projects-container .card {
+  padding: 10px;
+  margin: 10px;
+}
+
+
+.trending-greeting img {
+  width: 40px;
+  height: 40px;
+}
+
+.trending-greeting {
+  display: flex;
+  align-items: center;
+} 
+
+.trending-greeting-name-container p {
+  padding: 1px;
+}
+
+.trending-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
 }
