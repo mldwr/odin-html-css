@@ -6,8 +6,7 @@
 .container {
   display: grid;
   text-align: center;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr 1/2fr 5fr 1fr;
+  grid-template-columns: 1fr 4fr;
   gap: 4px;
 }
 
@@ -28,10 +27,12 @@
 
 .logo {
   grid-column: 1 / 2;
+  justify-self: start;
 }
 
 .menu {
   grid-column: 2 / 3;
+  align-self: center;
 }
 
 .menu ul {
@@ -55,6 +56,8 @@
   font-size: 12px;
   font-weight: normal;
   border-radius: 10px;
+  display: grid;
+  align-items: center;
 }
 
 
@@ -67,7 +70,6 @@
 
 .nav {
   background-color: #C50208;
-  grid-column: 2 / 3;
 }
 
 .nav ul {
@@ -80,7 +82,6 @@
 
 .article {
   background-color: #bccbde;
-  grid-column: 2 / 3;
   gap: 15px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -104,6 +105,7 @@
   color: black;
   font-weight: normal;
   font-size: 14px;
+  padding: 5px;
 }
 
 .card .title {
