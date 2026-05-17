@@ -1,11 +1,24 @@
 
 function Book(title, author, pages, isRead) {
-  const id = crypto.randomUUID();
+  const bookObject = {
+    title,
+    author,
+    pages,
+    isRead,
+  };
+  bookObject.id = crypto.randomUUID();
+
+
+  const getBookObject = () => bookObject;
+
+  function toggleReadStatus() {
+    bookObject.isRead = !bookObject.isRead;
+    return bookObject.isRead;
+  };
+
+  return {getBookObject, toggleReadStatus};
 }
 
-Book.prototype.toggleReadStatus = function() {
-  this.isRead = !this.isRead;
-};
 
 function Library() {
   const myLibrary = [];
@@ -38,7 +51,7 @@ function Library() {
       });
 
       bookCard.querySelector('.toggle-read-btn').addEventListener('click', () => {
-        book.toggleReadStatus();
+        book.isRead = !book.isRead;
         displayLibrary();
       });
 
@@ -47,9 +60,8 @@ function Library() {
   }
 
   function addBookToLibrary(title, author, pages, isRead) {
-    const newBook = Book(title, author, pages, isRead);
-    console.log(newBook);
-    myLibrary.push(newBook);
+    const bookObject = Book(title, author, pages, isRead).getBookObject();
+    myLibrary.push(bookObject);
     displayLibrary();
   }
 
