@@ -1,38 +1,45 @@
 
 function Book(title, author, pages, isRead) {
-  const bookObject = {
-    title,
-    author,
-    pages,
-    isRead,
+  const id = crypto.randomUUID();
+  const toggleReadStatus = () => { isRead = !isRead; };
+  // Return an object that includes the getter for state and the method
+  return { 
+    title, author, pages, 
+    get isRead() { return isRead; }, // Use a getter to keep it read-only if desired
+    toggleReadStatus, 
+    id 
   };
-  bookObject.id = crypto.randomUUID();
+}
 
-
-  const getBookObject = () => bookObject;
-
-  function toggleReadStatus() {
-    bookObject.isRead = !bookObject.isRead;
-    return bookObject.isRead;
+function Library() {
+  const books = [];
+  const addBookToLibrary = (title, author, pages, isRead) => {
+    books.push(Book(title, author, pages, isRead));
   };
+  const removeBook = (index) => books.splice(index, 1);
+  const getBooks = () => [...books]; // Return a copy to protect the original array
 
-  return {getBookObject, toggleReadStatus};
+  return { addBookToLibrary, removeBook, getBooks };
 }
 
 
-function Library() {
-  const myLibrary = [];
 
-  function displayLibrary() {
-    const libraryContainer = document.getElementById('library-container');
-    if (!libraryContainer) return;
+
+
+function ScreenController() {
+  const library = Library();
+  const libraryContainer = document.getElementById('library-container');
+
+  const updateScreen = () => {
     
     libraryContainer.innerHTML = '';
 
-    myLibrary.forEach((book, index) => {
+    library.getBooks().forEach((book, index) => {
       const bookCard = document.createElement('div');
       bookCard.classList.add('book-card');
       bookCard.setAttribute('data-index', index);
+
+      console.log('book:', book);
 
       bookCard.innerHTML = `
         <h3>${book.title}</h3>
@@ -46,38 +53,18 @@ function Library() {
       `;
 
       bookCard.querySelector('.remove-btn').addEventListener('click', () => {
-        removeBook(index);
-        displayLibrary();
+        library.removeBook(index);
+        updateScreen();
       });
 
       bookCard.querySelector('.toggle-read-btn').addEventListener('click', () => {
-        book.isRead = !book.isRead;
-        displayLibrary();
+        book.toggleReadStatus();
+        updateScreen();
       });
 
       libraryContainer.appendChild(bookCard);
     });
-  }
-
-  function addBookToLibrary(title, author, pages, isRead) {
-    const bookObject = Book(title, author, pages, isRead).getBookObject();
-    myLibrary.push(bookObject);
-    displayLibrary();
-  }
-
-  function removeBook(index) {
-    myLibrary.splice(index, 1);
-    displayLibrary();
-  }
-
-  return { displayLibrary, addBookToLibrary, removeBook };
-}
-
-
-
-
-function ScreenController() {
-  const library = Library();
+  };
 
   /** Event Listeners */
   const addBookBtn = document.getElementById('addBookBtn');
@@ -117,6 +104,7 @@ function ScreenController() {
   // Add some initial books for demonstration
   library.addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, true);
   library.addBookToLibrary('1984', 'George Orwell', 328, false);
+  updateScreen();
 
 }
 
