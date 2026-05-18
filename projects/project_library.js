@@ -22,7 +22,7 @@ function displayLibrary() {
   myLibrary.forEach((book, index) => {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
-    bookCard.setAttribute('data-index', index);
+    bookCard.setAttribute('data-id', book.id);
 
     bookCard.innerHTML = `
       <h3>${book.title}</h3>
@@ -36,7 +36,7 @@ function displayLibrary() {
     `;
 
     bookCard.querySelector('.remove-btn').addEventListener('click', () => {
-      removeBook(index);
+      removeBook(book.id);
     });
 
     bookCard.querySelector('.toggle-read-btn').addEventListener('click', () => {
@@ -57,9 +57,12 @@ function addBookToLibrary(title, author, pages, isRead) {
   displayLibrary();
 }
 
-function removeBook(index) {
-  myLibrary.splice(index, 1);
-  displayLibrary();
+function removeBook(id) {
+  const index = myLibrary.findIndex(book => book.id === id);
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+    displayLibrary();
+  }
 }
 
 /** Event Listeners */

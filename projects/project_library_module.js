@@ -16,7 +16,10 @@ function Library() {
   const addBookToLibrary = (title, author, pages, isRead) => {
     books.push(Book(title, author, pages, isRead));
   };
-  const removeBook = (index) => books.splice(index, 1);
+  const removeBook = (id) => {
+    const index = books.findIndex(book => book.id === id);
+    if (index !== -1) books.splice(index, 1);
+  };
   const getBooks = () => [...books]; // Return a copy to protect the original array
 
   return { addBookToLibrary, removeBook, getBooks };
@@ -34,10 +37,10 @@ function ScreenController() {
     
     libraryContainer.innerHTML = '';
 
-    library.getBooks().forEach((book, index) => {
+    library.getBooks().forEach((book) => {
       const bookCard = document.createElement('div');
       bookCard.classList.add('book-card');
-      bookCard.setAttribute('data-index', index);
+      bookCard.setAttribute('data-id', book.id);
 
       console.log('book:', book);
 
@@ -53,7 +56,7 @@ function ScreenController() {
       `;
 
       bookCard.querySelector('.remove-btn').addEventListener('click', () => {
-        library.removeBook(index);
+        library.removeBook(book.id);
         updateScreen();
       });
 
