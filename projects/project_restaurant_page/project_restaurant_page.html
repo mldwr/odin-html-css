@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Luigi's Trattoria</title>
   <link rel="stylesheet" href="https://unpkg.com/@digicreon/mucss/dist/mu.css">
 </head>
+
 <body>
 
 
   <nav class="container">
-      <ul><li><strong>Luigi's Trattoria</strong></li></ul>
-      <input type="checkbox" id="header-nav" class="navbar-toggle" hidden>
-      <label for="header-nav" class="navbar-burger">&#9776;</label>
-      <ul class="navbar-menu">
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#" onclick="document.getElementById('modal-lg').showModal()">Book a Table</a></li>
-          <li><a href="#about">About</a></li>
-          <li>Dark mode: <a href="#" id="theme-toggle"><input type="checkbox" role="switch" checked> </a>   </li>
-          <li><a href="https://mucss.org/"> <img src="favicon-mucss.png" alt=""></a></li>
-      </ul>
+    <ul>
+      <li><strong>Luigi's Trattoria</strong></li>
+    </ul>
+    <input type="checkbox" id="header-nav" class="navbar-toggle" hidden>
+    <label for="header-nav" class="navbar-burger">&#9776;</label>
+    <ul class="navbar-menu">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#" onclick="document.getElementById('modal-lg').showModal()">Book a Table</a></li>
+      <li><a href="#about">About</a></li>
+      <li>Dark mode: <a href="#" id="theme-toggle"><input type="checkbox" role="switch" checked> </a> </li>
+      <li><a href="https://mucss.org/"> <img src="favicon-mucss.png" alt=""></a></li>
+    </ul>
   </nav>
   <header class="container">
     <p>Authentic Italian Dining in the Heart of the City</p>
@@ -30,21 +34,24 @@
     <!-- Section + Articles automatically turns into a responsive Card Grid -->
     <section id="menu">
       <h2>Popular Dishes</h2>
-      
-      <article class="card-primary">
-        <h3>Margherita Pizza — $14</h3>
-        <p>Fresh San Marzano tomatoes, mozzarella di bufala, and basil.</p>
-      </article>
 
-      <article class="card-primary">
-        <h3>Rigatoni Carbonara — $18</h3>
-        <p>Crispy guanciale, egg yolk, pecorino romano, and black pepper.</p>
-      </article>
+      <div class="grid">
+        <article class="card-primary">
+          <h3>Margherita Pizza — $14</h3>
+          <p>Fresh San Marzano tomatoes, mozzarella di bufala, and basil.</p>
+        </article>
 
-      <article class="card-primary">
-        <h3>Tiramisu — $9</h3>
-        <p>Traditional espresso-soaked ladyfingers with mascarpone cream.</p>
-      </article>
+        <article class="card-primary">
+          <h3>Rigatoni Carbonara — $18</h3>
+          <p>Crispy guanciale, egg yolk, pecorino romano, and black pepper.</p>
+        </article>
+
+        <article class="card-primary">
+          <h3>Tiramisu — $9</h3>
+          <p>Traditional espresso-soaked ladyfingers with mascarpone cream.</p>
+        </article>
+      </div>
+
     </section>
 
     <hr>
@@ -97,14 +104,14 @@
 
 
   <script>
-  const btn = document.getElementById('theme-toggle');
-  btn.addEventListener('click', () => {
+    const btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', () => {
       const html = document.documentElement;
       const current = html.getAttribute('data-theme');
       html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-  });
+    });
   </script>
 
 </body>
-</html>
 
+</html>
