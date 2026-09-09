@@ -1,0 +1,66 @@
+/* ===== CLASSIC FOLDER TAB STYLE ===== */
+
+/* 1. Add the tab bar baseline (a bottom border on the nav) */
+nav.container {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 0;  /* Remove any bottom padding so tabs touch the border */
+}
+
+[data-theme="light"] nav.container {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Style each <a> as a tab */
+.navbar-menu li a {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  
+  /* Rounded on TOP only — this is the "tab" shape */
+  border-radius: 8px 8px 0 0;
+  
+  /* Bottom border highlight — matches nav bottom border initially */
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;  /* Pull down to overlap the nav's border */
+  
+  transition: all 0.25s ease;
+}
+
+/* 3. Hover state — subtle lift + hint */
+.navbar-menu li a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .navbar-menu li a:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+/* 4. ACTIVE tab — solid bg, hides the nav border behind it */
+.navbar-menu li a.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-bottom: 2px solid transparent;  /* Clear the bottom line */
+  font-weight: 600;
+}
+
+[data-theme="light"] .navbar-menu li a.active {
+  background-color: var(--bg, #ffffff);   /* Uses page bg to "connect" visually */
+  border-bottom: 2px solid transparent;
+}
+
+/* 5. Space between tabs so they don't merge */
+.navbar-menu li {
+  margin-left: 0.25rem;
+}
+.navbar-menu li:first-child {
+  margin-left: 0;
+}
+
+/* 6. Special handling for theme-toggle (has a switch inside) */
+.navbar-menu li:last-child a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

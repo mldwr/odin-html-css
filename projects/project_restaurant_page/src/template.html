@@ -18,11 +18,11 @@
     <input type="checkbox" id="header-nav" class="navbar-toggle" hidden>
     <label for="header-nav" class="navbar-burger">&#9776;</label>
     <ul class="navbar-menu">
+      <li><a href="#menu" class="active">Home</a></li>
       <li><a href="#menu">Menu</a></li>
       <li><a href="#" onclick="document.getElementById('modal-lg').showModal()">Book a Table</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="https://mucss.org/"> <img src="favicon-mucss.png" alt=""></a></li>
-      <li>Dark mode: <a href="#" id="theme-toggle"><input type="checkbox" role="switch" checked> </a> </li>
+      <li><a href="#" id="theme-toggle"><input type="checkbox" role="switch" checked> </a> </li>
     </ul>
   </nav>
 
@@ -111,9 +111,10 @@
 
 
 
-  <footer class="container">
-    <p>Open Tuesday–Sunday from 17:00. Call us at (555) 019-2834</p>
-  </footer>
+<footer class="container" style="display: flex; justify-content: space-between; align-items: center;">
+  <p>Open Tuesday–Sunday from 17:00. Call us at (555) 019-2834</p>
+  <a href="https://mucss.org/"> <img src="favicon-mucss.png" alt=""></a>
+</footer>
 
 
   <script>
