@@ -20,7 +20,10 @@ export function loadHome() {
   const button = document.createElement("button");
   button.className = "btn-primary";
   button.textContent = "Reserve Your Table";
-  button.onclick = loadBook;
+  button.addEventListener("click", () => {
+  document.getElementById("book-btn").click();
+});
+
 
   header.appendChild(h1);
   header.appendChild(p);

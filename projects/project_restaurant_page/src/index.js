@@ -7,21 +7,25 @@ import "./style.css";
 
 const homeBtn = document.getElementById("home-btn");
 homeBtn.addEventListener("click", () => {
+  setActiveTab(homeBtn);
   loadHome();
 });
 
 const menuBtn = document.getElementById("menu-btn");
 menuBtn.addEventListener("click", () => {
+  setActiveTab(menuBtn);
   loadMenu();
 });
 
 const bookBtn = document.getElementById("book-btn");
 bookBtn.addEventListener("click", () => {
+  setActiveTab(bookBtn);
   loadBook();
 });
 
 const aboutBtn = document.getElementById("about-btn");
 aboutBtn.addEventListener("click", () => {
+  setActiveTab(aboutBtn);
   loadAbout();
 });
 
@@ -33,5 +37,17 @@ btn.addEventListener('click', () => {
   html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
 });
 
+function setActiveTab(button) {
+  // Remove 'active' class from all nav buttons
+  const buttons = document.querySelectorAll(".navbar-menu button");
+  buttons.forEach((btn) => btn.classList.remove("btn-primary"));
+  // Add 'active' class to the clicked button
+  button.classList.add("btn-primary");
+}
 
-loadHome();
+function onPageLoad() {
+  setActiveTab(homeBtn);
+  loadHome();
+}
+
+onPageLoad();
