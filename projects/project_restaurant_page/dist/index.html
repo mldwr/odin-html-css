@@ -18,112 +18,25 @@
     <input type="checkbox" id="header-nav" class="navbar-toggle" hidden>
     <label for="header-nav" class="navbar-burger">&#9776;</label>
     <ul class="navbar-menu">
-      <li><a href="#menu">Menu</a></li>
-      <li><a href="#" onclick="document.getElementById('modal-lg').showModal()">Book a Table</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="https://mucss.org/"> <img src="dbe4b50803867678e12f.png" alt=""></a></li>
-      <li>Dark mode: <a href="#" id="theme-toggle"><input type="checkbox" role="switch" checked> </a> </li>
+      <li><button id="home-btn" class="outline">Home</button></li>
+      <li><button id="menu-btn" class="outline">Menu</button></li>
+      <li><button id="book-btn" class="outline">Book a Table</button></li>
+      <li><button id="about-btn" class="outline">About</button></li>
+      <li><input type="checkbox" id="theme-toggle" role="switch" checked> </li>
     </ul>
   </nav>
 
-  <header class="container" style="text-align: center; padding: 4rem 1rem 2rem;">
-    <h1>Luigi's Trattoria</h1>
-    <p class="lead">Authentic Italian Dining in the Heart of the City</p>
-    <button onclick="document.getElementById('modal-lg').showModal()" class="btn-primary">Reserve Your Table</button>
-  </header>
+
+
+  <div id="content"></div>
 
 
 
-  <main class="container">
-    <!-- Section + Articles automatically turns into a responsive Card Grid -->
-    <section id="menu">
-      <h2>Popular Dishes</h2>
 
-      <div class="grid">
-        <article class="card-primary">
-          <div style="display: flex; justify-content: space-between; align-items: baseline;">
-            <h3>Margherita Pizza</h3>
-            <mark>$14</mark>
-          </div>
-          <p>Fresh San Marzano tomatoes, mozzarella di bufala, and basil.</p>
-        </article>
+<footer class="container" style="display: flex; justify-content: flex-end; align-items: center;">
+  <a href="https://mucss.org/"> <img src="dbe4b50803867678e12f.png" alt=""></a>
+</footer>
 
-        <article class="card-primary">
-          <div style="display: flex; justify-content: space-between; align-items: baseline;">
-            <h3>Rigatoni Carbonara</h3>
-            <mark>$18</mark>
-          </div>
-          <p>Crispy guanciale, egg yolk, pecorino romano, and black pepper.</p>
-        </article>
-
-        <article class="card-primary">
-          <div style="display: flex; justify-content: space-between; align-items: baseline;">
-            <h3>Tiramisu</h3>
-            <mark>$9</mark>
-          </div>
-          <p>Traditional espresso-soaked ladyfingers with mascarpone cream.</p>
-        </article>
-      </div>
-
-    </section>
-
-    <hr>
-
-    <!-- Forms and inputs are styled automatically -->
-    <section class="container-fluid">
-      <!-- Modal: confirm reservation -->
-
-      <dialog id="modal-lg" class="modal-lg">
-        <article>
-          <button class="modal-close" aria-label="Close"
-            onclick="document.getElementById('modal-lg').close()">&times;</button>
-          <h3>Reserve a Table</h3>
-          <form>
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your name">
-
-            <label for="guests">Number of Guests</label>
-            <input type="number" id="guests" value="2">
-
-            <!-- <button type="submit">Book Table</button> -->
-            <button onclick="document.getElementById('my-modal').showModal()">Book Table</button>
-
-          </form>
-        </article>
-      </dialog>
-
-
-      <dialog id="my-modal">
-        <article>
-          <button class="modal-close" aria-label="Close"
-            onclick="document.getElementById('my-modal').close()">&times;</button>
-          <h3>Confirm Reservation</h3>
-          <p>Your reservation is confirmed.</p>
-          <footer>
-            <button class="btn btn-primary"
-              onclick="document.getElementById('my-modal').close(); document.getElementById('modal-lg').close()">Close</button>
-          </footer>
-        </article>
-      </dialog>
-
-    </section>
-  </main>
-
-
-
-  <footer class="container">
-    <p>Open Tuesday–Sunday from 17:00. Call us at (555) 019-2834</p>
-  </footer>
-
-
-  <script>
-    const btn = document.getElementById('theme-toggle');
-    btn.addEventListener('click', () => {
-      const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-    });
-  </script>
 
 </body>
 
