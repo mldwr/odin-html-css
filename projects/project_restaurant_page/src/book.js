@@ -2,37 +2,52 @@ export function loadBook() {
   const content = document.getElementById("content");
 
   content.innerHTML = `
-    <dialog id="modal-lg" class="modal-lg">
-        <article>
-          <button class="modal-close" aria-label="Close"
-            onclick="document.getElementById('modal-lg').close()">&times;</button>
-          <h3>Reserve a Table</h3>
-          <form>
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your name">
-
-            <label for="guests">Number of Guests</label>
-            <input type="number" id="guests" value="2">
-
-            <!-- <button type="submit">Book Table</button> -->
-            <button onclick="document.getElementById('my-modal').showModal()">Book Table</button>
-
-          </form>
-        </article>
-      </dialog>
+    <section class="container" style="max-width: 600px; padding: 2rem 1rem;">
+      <h2>Reserve a Table</h2>
+      <form id="booking-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your name" required>
+        <label for="guests">Number of Guests</label>
+        <input type="number" id="guests" value="2" min="1" max="10" required>
+        <button type="submit" class="btn-primary">Confirm Booking</button>
+      </form>
+    </section>
 
 
-      <dialog id="my-modal">
-        <article>
-          <button class="modal-close" aria-label="Close"
-            onclick="document.getElementById('my-modal').close()">&times;</button>
-          <h3>Confirm Reservation</h3>
-          <p>Your reservation is confirmed.</p>
-          <footer>
-            <button class="btn btn-primary"
-              onclick="document.getElementById('my-modal').close(); document.getElementById('modal-lg').close()">Close</button>
-          </footer>
-        </article>
-      </dialog>
+    <!-- Success Modal -->
+    <dialog id="confirm-modal">
+      <article>
+        <button class="modal-close" aria-label="Close" id="close-modal-btn">&times;</button>
+        <h3>Reservation Confirmed!</h3>
+        <p>Thank you! We look forward to seeing you.</p>
+        <footer>
+          <button id="modal-ok-btn" class="btn-primary">Great!</button>
+        </footer>
+      </article>
+    </dialog>
   `;
+
+  setupBookingEvents();
+}
+
+function setupBookingEvents() {
+  const form = document.getElementById("booking-form");
+  const modal = document.getElementById("confirm-modal");
+  const modalOkBtn = document.getElementById("modal-ok-btn");
+  const closeModalBtn = document.getElementById("close-modal-btn");
+
+  function openModal() { modal.showModal(); }
+  function closeModal() { modal.close(); }
+
+  // 1. Open modal when form is submitted successfully
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    openModal();
+  });
+
+  // 2. Close modal when clicking the "Great!" button
+  modalOkBtn.addEventListener("click", closeModal);
+
+  // 3. Close modal when clicking the close icon (X)
+  closeModalBtn.addEventListener("click", closeModal);
 }
