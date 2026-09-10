@@ -34,4 +34,4 @@ btn.addEventListener('click', () => {
 });
 
 
-//loadHome();
+loadHome();

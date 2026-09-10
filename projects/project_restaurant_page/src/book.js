@@ -6,7 +6,7 @@ export function loadBook() {
       <h2>Reserve a Table</h2>
       <form id="booking-form">
         <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Your name" required>
+        <input type="text" id="name" value="George" placeholder="Your name" required>
         <label for="guests">Number of Guests</label>
         <input type="number" id="guests" value="2" min="1" max="10" required>
         <button type="submit" class="btn-primary">Confirm Booking</button>
@@ -17,10 +17,10 @@ export function loadBook() {
     <!-- Success Modal -->
     <dialog id="confirm-modal">
       <article>
-        <button class="modal-close" aria-label="Close" id="close-modal-btn">&times;</button>
         <h3>Reservation Confirmed!</h3>
         <p>Thank you! We look forward to seeing you.</p>
         <footer>
+          <button id="close-modal-btn" class="btn-secondary">Close</button>
           <button id="modal-ok-btn" class="btn-primary">Great!</button>
         </footer>
       </article>
